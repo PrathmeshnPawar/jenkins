@@ -5,15 +5,14 @@ pipeline {
         stage('Compile Java') {
             steps {
                 echo 'Compiling Java Program...'
-                bat 'mkdir out'
-                bat 'javac -d out Main.java'
+                sh 'javac HelloWorld.java'
             }
         }
 
         stage('Run Program') {
             steps {
-                echo 'Running Java Program...'
-                bat 'java -cp out Main'
+                echo 'Running Program...'
+                sh 'java HelloWorld'
             }
         }
     }
@@ -21,7 +20,7 @@ pipeline {
     post {
         always {
             echo 'Cleaning up...'
-            bat 'rmdir /s /q out'
+            sh 'rm -f *.class'
         }
     }
 }
